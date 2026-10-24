@@ -1,0 +1,24 @@
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-TorresAna-nuevo
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+      MSSQL_SA_PASSWORD: "T0rresAna!Db2026_Segura"
+    ports:
+      - "1435:1433"
+    volumes:
+      - sqlserver_torresana_data:/var/opt/mssql
+    networks:
+      - my-network-TorresAna-nuevo
+    restart: unless-stopped
+
+volumes:
+  sqlserver_torresana_data:
+
+networks:
+  my-network-TorresAna-nuevo:
+    name: my-network-TorresAna-nuevo
+    driver: bridge

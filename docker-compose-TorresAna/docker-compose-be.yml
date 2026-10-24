@@ -1,0 +1,43 @@
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-TorresAna-nuevo
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+      MSSQL_SA_PASSWORD: "T0rresAna!Db2026_Segura"
+    ports:
+      - "1435:1433"
+    volumes:
+      - sqlserver_torresana_data:/var/opt/mssql
+    networks:
+      - my-network-TorresAna-nuevo
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ..
+      dockerfile: dockerfile-TorresAna/Dockerfile
+    image: anatorresmartinez/gestion-academica-torresana:1.0
+    container_name: backend-TorresAna-nuevo
+    ports:
+      - "8088:8085"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:sqlserver://sqlserver:1433;databaseName=BD_Gestion_Academica_v2;encrypt=true;trustServerCertificate=true"
+      SPRING_DATASOURCE_USERNAME: "sa"
+      SPRING_DATASOURCE_PASSWORD: "T0rresAna!Db2026_Segura"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
+    networks:
+      - my-network-TorresAna-nuevo
+    depends_on:
+      - sqlserver
+    restart: unless-stopped
+
+volumes:
+  sqlserver_torresana_data:
+
+networks:
+  my-network-TorresAna-nuevo:
+    name: my-network-TorresAna-nuevo
+    driver: bridge
