@@ -1,2 +1,0 @@
-Estos scripts pertenecen al esquema anterior BD_Gestion_Academica_v2.
-NO ejecutarlos contra GestionAcademica. El único SQL oficial entregado para este proyecto está en database-reference/GestionAcademica.sql y se conserva sin modificaciones.

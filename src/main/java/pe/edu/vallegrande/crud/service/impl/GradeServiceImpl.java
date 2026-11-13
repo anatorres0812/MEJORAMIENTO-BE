@@ -6,6 +6,6 @@ import pe.edu.vallegrande.crud.repository.GradeRepository;
 import pe.edu.vallegrande.crud.service.GradeService;
 
 @Service
-public class GradeServiceImpl extends AbstractCrudService<Grade, Long> implements GradeService {
+public class GradeServiceImpl extends AbstractCrudService<Grade, Integer> implements GradeService {
     public GradeServiceImpl(GradeRepository repository) { super(repository); }
 }
