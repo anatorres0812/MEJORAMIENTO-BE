@@ -1,0 +1,15 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: dockerfile-TorresAna/Dockerfile
+    image: torresana-backend:2.0
+    container_name: TorresAna-backend
+    ports:
+      - "8080:8085"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:sqlserver://${DB_HOST:-10.0.6.50}:1433;databaseName=GestionAcademica;encrypt=true;trustServerCertificate=true"
+      SPRING_DATASOURCE_USERNAME: "${DB_USER:-sa}"
+      SPRING_DATASOURCE_PASSWORD: "${DB_PASSWORD:?Define DB_PASSWORD con la contraseña real del SQL Server existente}"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
+    restart: unless-stopped
